@@ -30,7 +30,7 @@ public class TaskMapper {
                 taskEntity.getStatus(),
                 taskEntity.getPriority(),
                 taskEntity.getDeadline(),
-                taskEntity.getUser().getUserId(),
+                taskEntity.getCreatedBy().getUserId(),
                 taskEntity.getCreatedAt(),
                 taskEntity.getUpdatedAt(),
                 taskEntity.isDeleted()
