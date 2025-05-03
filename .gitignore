@@ -1,0 +1,14 @@
+# ====== BACKEND (Java + Spring Boot) ======
+/backend/target/
+/backend/.mvn/
+/backend/.idea/
+*.iml
+
+# ====== FRONTEND (React + Vite) ======
+/frontend/node_modules/
+/frontend/dist/
+/frontend/.env
+
+# ====== System/OS Stuff ======
+.DS_Store
+*.log
