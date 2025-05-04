@@ -154,7 +154,7 @@ public class TaskServiceImpl implements TaskService {
         TaskEntity taskEntity = taskRepository.findById(taskId)
                 .orElseThrow(() -> new ResourceNotFoundException("Task not found"));
 
-        taskEntity.setDeleted(true);
+        taskEntity.isDeleted(true);
 
         taskRepository.save(taskEntity);
     }

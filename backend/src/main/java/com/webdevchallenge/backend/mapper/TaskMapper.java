@@ -35,7 +35,7 @@ public class TaskMapper {
                 taskEntity.getCreatedBy().getUserId(),
                 taskEntity.getCreatedAt(),
                 taskEntity.getUpdatedAt(),
-                taskEntity.isDeleted(true)
+                taskEntity.isDeleted()
         );
     }
 }
