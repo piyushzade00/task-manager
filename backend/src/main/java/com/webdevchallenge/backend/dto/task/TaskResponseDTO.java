@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class TaskResponseDTO {
 
+    private Long taskId;
     private String description;
     private TaskStatus status;
     private TaskPriority priority;

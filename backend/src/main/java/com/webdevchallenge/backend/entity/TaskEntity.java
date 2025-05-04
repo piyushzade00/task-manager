@@ -10,9 +10,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.annotations.Where;
 
 import java.time.LocalDateTime;
 
+@Where(clause = "is_deleted = false")
 @Entity
 @Table(name = "tasks")
 @Data
@@ -59,4 +61,8 @@ public class TaskEntity {
     @JoinColumn(name = "user_id", nullable = false)
     @NotNull(message = "User must be associated with the task.")
     private UserEntity createdBy;
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
+    }
 }

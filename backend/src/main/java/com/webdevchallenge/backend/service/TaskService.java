@@ -13,7 +13,7 @@ public interface TaskService {
 
     List<TaskResponseDTO> getAllTasksForUser(Long userId);
 
-    List<TaskResponseDTO> getTaskByIdForUser(Long taskId, Long userId);
+    TaskResponseDTO getTaskByIdForUser(Long taskId, Long userId);
 
     TaskResponseDTO getTaskById(Long taskId);
 
