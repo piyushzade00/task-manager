@@ -1,11 +1,16 @@
 package com.webdevchallenge.backend.controller;
 
+import com.webdevchallenge.backend.dto.user.LoginRequestDTO;
 import com.webdevchallenge.backend.dto.user.SignUpRequestDTO;
 import com.webdevchallenge.backend.dto.user.UserResponseDTO;
 import com.webdevchallenge.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/api/users")
@@ -19,8 +24,21 @@ public class UserController {
     }
 
     @PostMapping("/create-user")
-    public ResponseEntity<UserResponseDTO> createUser(@RequestBody SignUpRequestDTO signUpRequestDTO) {
-        UserResponseDTO userResponseDTO = userService.createUser(signUpRequestDTO);
+    public ResponseEntity<UserResponseDTO> createUser(@RequestParam String userName,
+                                                      @RequestParam String email,
+                                                      @RequestParam String password,
+                                                      @RequestParam MultipartFile profilePhoto) throws Exception {
+
+        SignUpRequestDTO signUpRequestDTO = new SignUpRequestDTO(userName, email, password, "");
+
+        UserResponseDTO userResponseDTO = userService.createUser(signUpRequestDTO,profilePhoto);
+
+        return ResponseEntity.ok(userResponseDTO);
+    }
+
+    @PostMapping("/login-user")
+    public ResponseEntity<UserResponseDTO> loginUser(@RequestBody LoginRequestDTO loginRequestDTO) {
+        UserResponseDTO userResponseDTO = userService.loginUser(loginRequestDTO);
         return ResponseEntity.ok(userResponseDTO);
     }
 
@@ -46,5 +64,11 @@ public class UserController {
     public ResponseEntity<Boolean> deleteUserByEmail(@PathVariable String userEmail) {
         Boolean isDeleted = userService.deleteUserByEmail(userEmail);
         return ResponseEntity.ok(isDeleted);
+    }
+
+    @PostMapping("/logout-user/{userEmail}")
+    public ResponseEntity<Boolean> logoutUser(@PathVariable String userEmail) {
+        Boolean isLogout = userService.logoutUserByEmail(userEmail);
+        return ResponseEntity.ok(isLogout);
     }
 }

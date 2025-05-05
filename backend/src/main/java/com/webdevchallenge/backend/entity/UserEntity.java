@@ -36,7 +36,6 @@ public class UserEntity {
     @Column(name = "profile_photo_path")
     private String profilePhotoPath;
 
-    @NotNull
     @Column(name= "jwt_token")
     private String jwtToken;
 
@@ -106,11 +105,11 @@ public class UserEntity {
         this.profilePhotoPath = profilePhotoPath;
     }
 
-    public @NotNull String getJwtToken() {
+    public String getJwtToken() {
         return jwtToken;
     }
 
-    public void setJwtToken(@NotNull String jwtToken) {
+    public void setJwtToken(String jwtToken) {
         this.jwtToken = jwtToken;
     }
 
