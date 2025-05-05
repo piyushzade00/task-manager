@@ -21,5 +21,5 @@ public interface TaskService {
 
     List<TaskResponseDTO> getTasksDueToday(Long userId);
 
-    void softDeleteTask(Long taskId);
+    boolean softDeleteTask(Long taskId);
 }

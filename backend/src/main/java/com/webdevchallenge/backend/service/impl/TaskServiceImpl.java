@@ -147,7 +147,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public void softDeleteTask(Long taskId) {
+    public boolean softDeleteTask(Long taskId) {
         if(taskId == null)
             throw new ResourceNotFoundException("Task not found");
 
@@ -157,5 +157,7 @@ public class TaskServiceImpl implements TaskService {
         taskEntity.setDeleted(true);
 
         taskRepository.save(taskEntity);
+
+        return true;
     }
 }

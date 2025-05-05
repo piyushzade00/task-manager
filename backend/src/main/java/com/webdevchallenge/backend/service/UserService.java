@@ -12,5 +12,5 @@ public interface UserService {
 
     boolean existsByEmail(String email);
 
-    boolean deactivateUserByEmail(String email);
+    boolean deleteUserByEmail(String email);
 }
