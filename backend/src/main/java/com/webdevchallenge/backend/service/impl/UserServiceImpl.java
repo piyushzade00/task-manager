@@ -73,7 +73,7 @@ public class UserServiceImpl implements UserService {
             Files.createDirectories(path.getParent());
             Files.copy(profilePhoto.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
 
-            signUpRequestDTO.setProfilePhotoPath(fullPath);
+            signUpRequestDTO.setProfilePhotoPath(fileName);
         }
 
         UserEntity userEntity = userMapper.toSignUpEntity(signUpRequestDTO);

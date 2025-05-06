@@ -12,6 +12,7 @@ import com.webdevchallenge.backend.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,11 +34,22 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public TaskResponseDTO createTask(TaskRequestDTO taskRequestDTO) {
         if(taskRequestDTO == null)
-            return null;
-        else if(taskRequestDTO.getDeadline().isBefore(LocalDateTime.now()))
-            return null;
-        else if(taskRequestDTO.getDescription().trim().isEmpty())
+            throw new IllegalArgumentException("Task data cannot be empty");
+
+        String description = taskRequestDTO.getDescription().trim();
+        if(description.isEmpty())
             throw new ResourceNotFoundException("Description cannot be empty");
+        else if(description.length() < 4)
+            throw new ResourceNotFoundException("Description cannot be less than 4 characters");
+        else if(description.length() > 50)
+            throw new ResourceNotFoundException("Description cannot be longer than 50 characters");
+        else if(!(taskRequestDTO.getDeadline() == null))
+        {
+            LocalDate deadline = LocalDate.from(taskRequestDTO.getDeadline());
+
+            if(deadline.isBefore(LocalDateTime.now().toLocalDate()))
+                return null;
+        }
 
         UserEntity userEntity = userRepository.findById(taskRequestDTO.getUserId())
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
@@ -50,12 +62,17 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public TaskResponseDTO updateTask(Long taskId, TaskRequestDTO taskRequestDTO) {
-        if(taskRequestDTO == null)
-            return null;
-        else if(taskRequestDTO.getDeadline().isBefore(LocalDateTime.now()))
-            return null;
-        else if(taskRequestDTO.getDescription().trim().isEmpty())
+       String description = taskRequestDTO.getDescription().trim();
+       LocalDate deadline = LocalDate.from(taskRequestDTO.getDeadline());
+
+        if(description.isEmpty())
             throw new ResourceNotFoundException("Description cannot be empty");
+        else if(description.length() < 4)
+            throw new ResourceNotFoundException("Description cannot be less than 4 characters");
+        else if(description.length() > 50)
+            throw new ResourceNotFoundException("Description cannot be longer than 50 characters");
+        else if(deadline.isBefore(LocalDateTime.now().toLocalDate()))
+            throw new IllegalArgumentException("Deadline cannot be before current time.");
 
         TaskEntity existingTaskEntity = taskRepository.findById(taskId)
                 .orElseThrow(() -> new ResourceNotFoundException("Task not found"));

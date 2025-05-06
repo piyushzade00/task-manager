@@ -3,24 +3,28 @@ package com.webdevchallenge.backend.controller;
 import com.webdevchallenge.backend.dto.user.LoginRequestDTO;
 import com.webdevchallenge.backend.dto.user.SignUpRequestDTO;
 import com.webdevchallenge.backend.dto.user.UserResponseDTO;
+import com.webdevchallenge.backend.service.JwtService;
 import com.webdevchallenge.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
 
     private final UserService userService;
+    private final JwtService jwtService;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, JwtService jwtService) {
         this.userService = userService;
+        this.jwtService = jwtService;
     }
 
     @PostMapping("/create-user")
@@ -67,7 +71,19 @@ public class UserController {
     }
 
     @PostMapping("/logout-user/{userEmail}")
-    public ResponseEntity<Boolean> logoutUser(@PathVariable String userEmail) {
+    public ResponseEntity<Boolean> logoutUser(@PathVariable String userEmail,
+                                              @RequestHeader("Authorization") String authHeader) {
+
+        if (authHeader == null || !authHeader.startsWith("Bearer ")){
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+        String token = authHeader.substring(7);
+
+        boolean isValidJWTToken = jwtService.validateToken(token);
+        if (!isValidJWTToken) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
         Boolean isLogout = userService.logoutUserByEmail(userEmail);
         return ResponseEntity.ok(isLogout);
     }
