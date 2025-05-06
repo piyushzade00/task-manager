@@ -1,4 +1,5 @@
-input {
+input,
+select {
   border-radius: 8px;
   border: 1px solid #d1d1d1;
   padding: 0.5rem;
@@ -13,7 +14,8 @@ input {
 
 .signup-header,
 .login-header,
-.home-header {
+.home-header,
+.your-tasks-header {
   font-size: 2rem;
   text-align: center;
   margin-bottom: 1rem;
@@ -54,7 +56,8 @@ label {
 
 .signup-button,
 .login-button,
-.log-task-button {
+.log-task-button,
+.cancel-edit-button {
   background-color: #0477bf;
   color: white;
   border: 1px solid #0a141f;
@@ -76,6 +79,13 @@ label {
   height: 98vh;
 }
 
+.home-page-container {
+  display: block;
+  justify-content: center;
+  align-items: center;
+  height: 98vh;
+}
+
 .error-message {
   color: red;
   font-size: 0.9rem;
@@ -86,4 +96,168 @@ label {
 .signup-footer {
   text-align: center;
   margin-top: 1rem;
+}
+
+.task-list-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.task-table {
+  border: #000000 1px solid;
+  font-size: 1.2em;
+}
+
+.table-header {
+  background-color: #3ca9ec;
+  color: rgb(0, 0, 0);
+  font-weight: bold;
+  align-items: center;
+  border: #000000 1px solid;
+  font-size: 1.2em;
+}
+
+.task-row {
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+  font-weight: normal;
+  align-items: center;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #92caf0;
+  }
+}
+
+.task-data {
+  padding: 0.4rem;
+  text-align: center;
+  border: #000000 1px solid;
+}
+
+.task-description {
+  padding: 0.4rem;
+  border: #000000 1px solid;
+}
+
+.edit-button,
+.delete-button {
+  background-color: #0477bf;
+  color: white;
+  border: 1px solid #0a141f;
+  font-size: 1.2em;
+  font-weight: normal;
+  font-family: inherit;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 6rem;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+.loader-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.spinner {
+  border: 8px solid #f3f3f3;
+  border-top: 8px solid #3498db;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Page Header css */
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+.profile-section {
+  position: relative;
+}
+
+.profile-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 4px 8px;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #ccc;
+}
+
+.username {
+  font-size: 14px;
+  color: #333;
+}
+
+.chevron {
+  font-size: 12px;
+  color: #666;
+}
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 6px;
+  background-color: white;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 8px;
+  border-radius: 4px;
+  z-index: 100;
+}
+
+.dropdown button {
+  background: none;
+  border: none;
+  font-size: 14px;
+  color: #333;
+  padding: 8px 12px;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+}
+
+.dropdown button:hover {
+  background-color: #f0f0f0;
 }
