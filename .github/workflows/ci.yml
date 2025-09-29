@@ -1,0 +1,21 @@
+name: DevOps Assistant Dummy CI
+
+on:
+  # This tells the workflow to run whenever code is pushed to the main branch
+  push:
+    branches: ["main"]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Just a dummy check
+        run: |
+          echo "Simulating a quick build step..."
+          # You can add real build/test commands here later if needed
+
+      - name: Complete Job
+        run: echo "Dummy CI completed successfully."
